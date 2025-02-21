@@ -69,10 +69,10 @@ jobs:
       Wap_Project_Path: your-wap-project-path # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
 
     steps:
-      - name: Echo hello
-        run: "echo Hello, world! config: ${{ matrix.configuration }}, solution: $Solution_Name"
-        env:
+      - env:
           Solution_Name: ${{ env.Solution_Name }}
+        name: Echo hello
+        run: "echo Hello, world! config: ${{ matrix.configuration }}, solution: $Solution_Name"
 
       - name: the secret
         run: |
