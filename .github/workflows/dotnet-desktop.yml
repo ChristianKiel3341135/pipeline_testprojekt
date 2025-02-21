@@ -82,16 +82,24 @@ jobs:
       - run: mkdir ./reports
 
       - name: Execute unit tests
-        run: dotnet test --results-directory ${{ runner.temp }}/reports --logger "trx;LogFileName=TestResults.trx"
+        run: dotnet test --results-directory ./reports --logger "trx;LogFileName=TestResults.trx"
 
       - run: ls -R /home/runner/work/_temp/reports
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: tests
+          path: ./reports/*.trx
+          reporter: dotnet-trx
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: |
-            ${{ runner.temp }}/reports/*.trx
+            ./reports/*.trx
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
