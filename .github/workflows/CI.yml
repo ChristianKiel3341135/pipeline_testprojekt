@@ -22,7 +22,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: test
+
     env:
       Solution_Name: your-solution-name # Replace with your solution name, i.e. MyWpfApp.sln.
 
