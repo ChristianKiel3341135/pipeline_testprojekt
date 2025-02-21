@@ -62,6 +62,7 @@ jobs:
       matrix:
         configuration: [Release, Debug]
 
+    environment: test
     env:
       Solution_Name: your-solution-name # Replace with your solution name, i.e. MyWpfApp.sln.
       Test_Project_Path: your-test-project-path # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
