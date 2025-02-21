@@ -80,10 +80,18 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Execute unit tests
-        run: dotnet test
+        run: dotnet test --results-directory:/reports --logger "trx;LogFileName=TestResults.trx"
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Le tests
+          path: reports/*.trx
+          reporter: dotnet-trx
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: MSIX Package
-          path: ${{ env.Wap_Project_Directory }}/github_pipeline_testprojekt/bin/Debug
+          path: ./
