@@ -83,11 +83,9 @@ jobs:
 
       - name: Execute unit tests
         run: dotnet test --results-directory ${{ runner.temp }}/reports --logger "trx;LogFileName=TestResults.trx"
-        # env:
-        #   RUNNER_TEMP: ${{ runner.temp }}
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action/linux@v2
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
           files: |
