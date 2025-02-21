@@ -80,13 +80,15 @@ jobs:
         env:
           SECRET: ${{ secrets.test_secret }}
 
-      - name: the secret
+      - name: Load Secrets & Variables
         run: |
-          echo log level: ${{ inputs.logLevel }}
-          echo secret: "${{ secrets.test.test_secret }}"
-          echo secret: #reference action secet $SECRET
+          echo "Log level: ${{ inputs.logLevel }}"
+          echo "Secret is set"
+          echo "Variable: $TEST_VAR"
         env:
-          SECRET: ${{ secrets.test_secret }}
+          SECRET: ${{ secrets.TEST_SECRET }}
+          TEST_VAR: ${{ vars.TEST_VAR }}
+
 
       - uses: actions/checkout@v4
         name: Checkout
