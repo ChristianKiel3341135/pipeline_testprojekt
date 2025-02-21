@@ -92,6 +92,7 @@ jobs:
       # Decode the base 64 encoded pfx and save the Signing_Certificate
       - name: the secret
         run: |
+          echo secret: "${{ secrets.test.test_secret }}"
           echo secret: "${{ secrets.test_secret }}"
 
       # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
