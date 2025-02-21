@@ -84,7 +84,7 @@ jobs:
       - name: Execute unit tests
         run: dotnet test --results-directory ./reports --logger "trx;LogFileName=TestResults.trx"
 
-      - run: ls -R /home/runner/work/_temp/reports
+      - run: ls -R ./reports
 
       - name: Test Report
         uses: dorny/test-reporter@v1
@@ -93,6 +93,7 @@ jobs:
           name: tests
           path: ./reports/*.trx
           reporter: dotnet-trx
+          artifacts: "TestReport $1"
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
