@@ -39,6 +39,14 @@
 name: .NET Core Desktop
 
 on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
+      tags:
+        description: "Test scenario tags"
   push:
     branches: ["master"]
   pull_request:
@@ -64,6 +72,13 @@ jobs:
       - name: Echo hello
         run: "echo Hello, world! config: ${{ matrix.configuration }}, solution: $Solution_Name"
 
+      - name: the secret
+        run: |
+          echo log level: ${{ inputs.logLevel }}
+          echo secret: "${{ secrets.test.test_secret }}"
+          echo secret: "${{ secrets.test_secret }}"
+
+
       - uses: actions/checkout@v4
         name: Checkout
         with:
@@ -88,12 +103,6 @@ jobs:
         run: dotnet build "--$Configuration"
         env:
           Configuration: ${{ matrix.configuration }}
-
-      # Decode the base 64 encoded pfx and save the Signing_Certificate
-      - name: the secret
-        run: |
-          echo secret: "${{ secrets.test.test_secret }}"
-          echo secret: "${{ secrets.test_secret }}"
 
       # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
       - name: Upload build artifacts
