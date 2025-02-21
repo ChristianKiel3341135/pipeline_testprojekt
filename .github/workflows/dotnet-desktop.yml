@@ -84,11 +84,12 @@ jobs:
       - name: Execute unit tests
         run: dotnet test --results-directory $RUNNER_TEMP/reports --logger "trx;LogFileName=TestResults.trx"
 
-      - name: Test Report
-        uses: ctrf-io/github-test-reporter@v1
-        if: success() || failure()
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/linux@v2
+        if: always()
         with:
-          report-path: '$RUNNER_TEMP/reports/*.trx'
+          files: |
+            ${{ runner.temp }}/reports/*.trx
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
