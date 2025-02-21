@@ -79,8 +79,10 @@ jobs:
       - name: Execute unit tests
         run: dotnet build --no-restore
 
+      - run: mkdir ./reports
+
       - name: Execute unit tests
-        run: dotnet test --results-directory:/reports --logger "trx;LogFileName=TestResults.trx"
+        run: dotnet test --results-directory:./reports --logger "trx;LogFileName=TestResults.trx"
 
       - name: Test Report
         uses: dorny/test-reporter@v1
