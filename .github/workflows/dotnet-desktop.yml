@@ -85,6 +85,7 @@ jobs:
           echo "Log level: ${{ inputs.logLevel }}"
           echo "Secret is set"
           echo "Variable: $TEST_VAR"
+          echo "Secret: $SECRET"
         env:
           SECRET: ${{ secrets.TEST_SECRET }}
           TEST_VAR: ${{ vars.TEST_VAR }}
