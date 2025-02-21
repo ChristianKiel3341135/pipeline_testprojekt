@@ -15,7 +15,7 @@ public class CalculatorTests
     {
         var calculator = new Calculator();
         int result = calculator.Subtract(10, 4);
-        Assert.Equal(8, result);
+        Assert.Equal(6, result);
     }
 
     [Fact]
