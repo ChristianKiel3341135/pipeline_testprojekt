@@ -62,7 +62,7 @@ jobs:
           name: tests
           path: ./reports/*.trx
           reporter: dotnet-trx
-          artifact: ./reports/(.*).trx
+          # artifact: ./reports/(.*).trx
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
