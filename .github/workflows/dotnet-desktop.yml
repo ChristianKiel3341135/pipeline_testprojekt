@@ -58,69 +58,30 @@ jobs:
       ubuntu-latest # For a list of available runner types, refer to
       # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
-    # strategy:
-    #   matrix:
-    #     configuration: [Release, Debug]
-
     environment: test
     env:
       Solution_Name: your-solution-name # Replace with your solution name, i.e. MyWpfApp.sln.
-      Test_Project_Path: your-test-project-path # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
-      Wap_Project_Directory: your-wap-project-directory-name # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: your-wap-project-path # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
 
     steps:
-      - name: Echo hello
-        run: "echo Hello, world! config: ${{ matrix.configuration }}, solution: $Solution_Name"
-
-      - name: the secret
-        run: |
-          # echo log level: ${{ inputs.logLevel }}
-          echo toupper
-          echo "$SECRET" | tr '[:lower:]' '[:upper:]'
-          echo "replaced2:"
-          echo "$SECRET" | tr '[:lower:]' '[:upper:]' | sed 's/^\(.\).\(.*\)/\1X\2/'
-          echo secret: $SECRET
-        env:
-          SECRET: ${{ secrets.test_secret }}
-
-      - name: Load Secrets & Variables
-        run: |
-          echo "Log level: ${{ inputs.logLevel }}"
-          echo "Secret is set"
-          echo "Variable: $TEST_VAR"
-          echo "Secret: $SECRET"
-        env:
-          SECRET: ${{ secrets.TEST_SECRET }}
-          TEST_VAR: ${{ vars.TEST_VAR }}
-
-
       - uses: actions/checkout@v4
         name: Checkout
         with:
           fetch-depth: 0
 
-      # Install the .NET Core workload
       - name: Install .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
-      # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v2
+      - name: Execute unit tests
+        run: dotnet restore
 
-      # Execute all unit tests in the solution
+      - name: Execute unit tests
+        run: dotnet build --no-restore
+
       - name: Execute unit tests
         run: dotnet test
 
-      # Restore the application to populate the obj folder with RuntimeIdentifiers
-      - name: Restore the application
-        run: dotnet build "--$Configuration"
-        env:
-          Configuration: ${{ matrix.configuration }}
-
-      # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
