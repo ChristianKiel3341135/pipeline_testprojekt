@@ -27,6 +27,8 @@ jobs:
       Solution_Name: your-solution-name # Replace with your solution name, i.e. MyWpfApp.sln.
 
     steps:
+      - run: echo repo-secret? ${{ secrets.repo_secret }}
+
       - uses: actions/checkout@v4
         name: Checkout
         with:
