@@ -71,6 +71,8 @@ jobs:
     steps:
       - name: Echo hello
         run: "echo Hello, world! config: ${{ matrix.configuration }}, solution: $Solution_Name"
+        env:
+          Solution_Name: ${{ env.Solution_Name }}
 
       - name: the secret
         run: |
