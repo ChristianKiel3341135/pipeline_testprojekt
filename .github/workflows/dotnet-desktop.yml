@@ -60,7 +60,7 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Release, Debug]
 
     env:
       Solution_Name: your-solution-name # Replace with your solution name, i.e. MyWpfApp.sln.
