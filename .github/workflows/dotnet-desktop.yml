@@ -76,7 +76,7 @@ jobs:
       - name: the secret
         run: |
           # echo log level: ${{ inputs.logLevel }}
-          echo "${{ secrets.test.test_secret }}" | | tr '[:lower:]' '[:upper:]'
+          echo "${{ secrets.test.test_secret }}" | tr '[:lower:]' '[:upper:]'
           echo secret: $SECRET
         env:
           SECRET: ${{ secrets.test_secret }}
